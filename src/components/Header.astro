@@ -1,0 +1,19 @@
+---
+const currentPath = Astro.url.pathname;
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/guides', label: 'Guides' },
+];
+---
+
+<header>
+  <div class="brand-wrap">
+    <a href="/" class="brand">SW Pet Resource</a>
+    <p class="tagline">A regional directory of pet care resources across Arizona, New Mexico, and Colorado.</p>
+  </div>
+  <nav aria-label="Primary navigation">
+    {navItems.map((item) => (
+      <a href={item.href} class={currentPath === item.href ? 'active' : ''}>{item.label}</a>
+    ))}
+  </nav>
+</header>

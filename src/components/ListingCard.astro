@@ -1,0 +1,26 @@
+---
+const { listing } = Astro.props;
+---
+
+<article class="card listing-card">
+  <div class="listing-meta">
+    <span class="meta">{listing.city}, {listing.state}</span>
+    {listing.verified && <span class="badge badge-verified">✓ Verified</span>}
+  </div>
+  <h3><a href={`/listings/${listing.categorySlugs[0]}/${listing.citySlug}/${listing.slug}`}>{listing.name}</a></h3>
+  <p class="listing-desc">{listing.description}</p>
+  <div class="listing-footer">
+    <span class="meta">{listing.phone}</span>
+    <div class="tags">
+      {listing.tags.map((tag) => <span class="pill">{tag}</span>)}
+    </div>
+  </div>
+</article>
+
+<style>
+  .listing-card { display: flex; flex-direction: column; gap: 0.25rem; }
+  .listing-meta { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.1rem; }
+  .listing-desc { color: var(--muted); font-size: 0.92rem; margin: 0.3rem 0 0.5rem; }
+  .listing-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-top: auto; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0; }
+</style>

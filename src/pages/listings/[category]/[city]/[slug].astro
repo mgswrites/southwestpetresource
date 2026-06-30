@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { getCategoryBySlug, getListingBySlug, listings, getRegionBySlug } from '../../../../lib/data';
+
+export function getStaticPaths() {
+  return listings.flatMap((listing) =>
+    listing.categorySlugs.map((categorySlug) => ({
+      params: { category: categorySlug, city: listing.citySlug, slug: listing.slug },
+      props: { listing },
+    }))
+  );
+}
+
+const { listing } = Astro.props;
+const category = getCategoryBySlug(listing.categorySlugs[0]);
+const region = getRegionBySlug(listing.citySlug);
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: listing.name,
+  description: listing.description,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: listing.address,
+    addressLocality: listing.city,
+    addressRegion: listing.state,
+  },
+  telephone: listing.phone,
+  url: listing.website,
+};
+---
+
+<BaseLayout title={listing.name} description={listing.description} schema={schema}>
+  <section class="hero">
+    <p class="pill">{category?.name}</p>
+    <h1>{listing.name}</h1>
+    <p>{listing.city}, {listing.state}</p>
+    <p>{listing.description}</p>
+  </section>
+
+  <section class="section">
+    <div class="panel">
+      <p><strong>Address:</strong> {listing.address}</p>
+      <p><strong>Phone:</strong> {listing.phone}</p>
+      <p><strong>Website:</strong> <a href={listing.website} target="_blank" rel="noreferrer">Visit website</a></p>
+      <p><strong>Tags:</strong> {listing.tags.join(', ')}</p>
+    </div>
+  </section>
+</BaseLayout>

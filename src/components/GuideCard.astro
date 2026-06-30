@@ -1,0 +1,16 @@
+---
+const { guide } = Astro.props;
+---
+
+<article class="card guide-card">
+  <h3><a href={`/guides/${guide.slug}`}>{guide.title}</a></h3>
+  <p class="excerpt">{guide.excerpt}</p>
+  <a href={`/guides/${guide.slug}`} class="read-more" aria-hidden="true">Read guide →</a>
+</article>
+
+<style>
+  .guide-card { display: flex; flex-direction: column; gap: 0.2rem; }
+  .excerpt { color: var(--muted); font-size: 0.92rem; margin: 0.25rem 0 0.6rem; }
+  .read-more { font-size: 0.85rem; font-weight: 600; color: var(--sage); }
+  .read-more:hover { color: var(--sage-dark); text-decoration: none; }
+</style>

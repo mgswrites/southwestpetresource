@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getGuideBySlug, getGuides } from '../../lib/data';
+
+export function getStaticPaths() {
+  return getGuides().map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
+}
+
+const { guide } = Astro.props;
+const entry = getGuideBySlug(guide.slug) ?? guide;
+---
+
+<BaseLayout title={entry.title} description={entry.excerpt}>
+  <section class="hero">
+    <h1>{entry.title}</h1>
+    <p>{entry.excerpt}</p>
+  </section>
+
+  <section class="section">
+    <p>{entry.body}</p>
+  </section>
+</BaseLayout>

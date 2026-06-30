@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import { getGuides } from '../../lib/data';
+
+const guides = getGuides();
+---
+
+<BaseLayout title="Guides" description="Editorial guides for choosing vets, finding low-cost clinics, and caring for rescue pets.">
+  <section class="hero">
+    <h1>Guides for pet owners and adopters</h1>
+    <p>Helpful articles for navigating vet care, rescue transitions, and local resources.</p>
+  </section>
+
+  <section class="section">
+    <div class="list">
+      {guides.map((guide) => <GuideCard guide={guide} />)}
+    </div>
+  </section>
+</BaseLayout>

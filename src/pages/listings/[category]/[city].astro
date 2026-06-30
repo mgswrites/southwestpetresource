@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ListingCard from '../../../components/ListingCard.astro';
+import { categories, getCategoryBySlug, getListingsForCategoryAndCity, getRegionBySlug, regions } from '../../../lib/data';
+
+export function getStaticPaths() {
+  return categories.flatMap((category) =>
+    regions.map((region) => ({
+      params: { category: category.slug, city: region.slug },
+      props: { categorySlug: category.slug, citySlug: region.slug },
+    }))
+  );
+}
+
+const { categorySlug, citySlug } = Astro.props;
+const category = getCategoryBySlug(categorySlug);
+const region = getRegionBySlug(citySlug);
+const listings = getListingsForCategoryAndCity(categorySlug, citySlug);
+---
+
+<BaseLayout title={`${category?.name || categorySlug} in ${region?.name || citySlug}`} description={`Local ${category?.name || categorySlug} listings in ${region?.name || citySlug}.`}>
+  <section class="hero">
+    <h1>{category?.name || categorySlug} in {region?.name || citySlug}</h1>
+    <p>Browse the current directory for trusted pet care providers in this city.</p>
+  </section>
+
+  <section class="section">
+    {listings.length > 0 ? (
+      <div class="list">
+        {listings.map((listing) => <ListingCard listing={listing} />)}
+      </div>
+    ) : (
+      <p>No listings have been added for this category and city yet. The site is ready for your seed data rollout.</p>
+    )}
+  </section>
+</BaseLayout>
