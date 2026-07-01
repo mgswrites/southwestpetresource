@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { STATES, getRegionsByState, getCategories } from '../lib/data';
+import { STATES, type State } from '../lib/states';
+import { getRegionsByState, getCategories } from '../lib/data';
 
 export async function getStaticPaths() {
   return STATES.map((s) => ({ params: { state: s.slug }, props: { state: s } }));
 }
 
-const { state } = Astro.props as { state: typeof STATES[number] };
+const { state } = Astro.props as { state: State };
 const [regions, categories] = await Promise.all([
   getRegionsByState(state.abbr),
   getCategories(),
@@ -18,11 +19,15 @@ const hasCities = regions.length > 0;
   title={`Pet Care in ${state.name}`}
   description={`Find veterinarians, boarding, groomers, pet supply stores, and pet-friendly lodging in ${state.name}.`}
 >
-  <section class="hero">
-    <p class="pill">{state.abbr} · Southwest Pet Resource</p>
-    <h1>Pet care in {state.name}</h1>
-    <p>Browse trusted pet care resources across {state.name}.</p>
-  </section>
+  <div class="state-banner">
+    <img src={state.image} alt={`${state.name} landscape`} class="banner-img" />
+    <div class="banner-overlay" />
+    <div class="banner-text">
+      <p class="pill pill-white">{state.abbr} · Southwest Pet Resource</p>
+      <h1>Pet care in {state.name}</h1>
+      <p>Browse trusted pet care resources across {state.name}.</p>
+    </div>
+  </div>
 
   {hasCities ? (
     <>
@@ -60,6 +65,47 @@ const hasCities = regions.length > 0;
 </BaseLayout>
 
 <style>
+  .state-banner {
+    position: relative;
+    width: calc(100% + 2.5rem);
+    margin: -1rem -1.25rem 0;
+    height: 340px;
+    overflow: hidden;
+    border-radius: 0;
+  }
+  .banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  .banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0.05) 100%);
+  }
+  .banner-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 1.5rem;
+    color: #fff;
+  }
+  .banner-text h1 {
+    margin: 0.35rem 0 0.4rem;
+    font-size: 2rem;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .banner-text p { margin: 0; opacity: 0.88; font-size: 0.95rem; }
+  .pill-white {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(4px);
+  }
   .city-grid {
     display: grid;
     gap: 0.75rem;

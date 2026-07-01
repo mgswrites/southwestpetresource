@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { STATES, getRegionsByState, getCategories, getRegionBySlug } from '../../lib/data';
+import { STATES, type State } from '../../lib/states';
+import { getRegionsByState, getCategories } from '../../lib/data';
+import type { Region } from '../../lib/data';
 
 export async function getStaticPaths() {
   const paths = [];
@@ -13,7 +15,7 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const { state, region } = Astro.props as { state: typeof STATES[number]; region: { name: string; slug: string } };
+const { state, region } = Astro.props as { state: State; region: Region };
 const categories = await getCategories();
 ---
 
