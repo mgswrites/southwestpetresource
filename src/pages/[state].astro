@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { STATES, getRegionsByState, getCategories } from '../lib/data';
+
+export async function getStaticPaths() {
+  return STATES.map((s) => ({ params: { state: s.slug }, props: { state: s } }));
+}
+
+const { state } = Astro.props as { state: typeof STATES[number] };
+const [regions, categories] = await Promise.all([
+  getRegionsByState(state.abbr),
+  getCategories(),
+]);
+const hasCities = regions.length > 0;
+---
+
+<BaseLayout
+  title={`Pet Care in ${state.name}`}
+  description={`Find veterinarians, boarding, groomers, pet supply stores, and pet-friendly lodging in ${state.name}.`}
+>
+  <section class="hero">
+    <p class="pill">{state.abbr} · Southwest Pet Resource</p>
+    <h1>Pet care in {state.name}</h1>
+    <p>Browse trusted pet care resources across {state.name}.</p>
+  </section>
+
+  {hasCities ? (
+    <>
+      <section class="section">
+        <h2>Cities</h2>
+        <div class="city-grid">
+          {regions.map((region) => (
+            <a href={`/${state.slug}/${region.slug}`} class="city-card">
+              {region.name}
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Browse by category</h2>
+        <div class="grid">
+          {categories.map((cat) => (
+            <a href={`/listings/${cat.slug}/${regions[0].slug}`} class="card cat-card">
+              <span class="cat-icon">{cat.icon}</span>
+              <span class="cat-name">{cat.name}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    </>
+  ) : (
+    <section class="section">
+      <div class="coming-soon">
+        <p>We're expanding to {state.name} soon.</p>
+        <p>Check back for local listings.</p>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .city-grid {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+  .city-card {
+    display: block;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--sage-dark);
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
+    box-shadow: 0 2px 8px rgba(58,94,80,0.05);
+  }
+  .city-card:hover {
+    border-color: var(--sage);
+    box-shadow: 0 5px 18px rgba(58,94,80,0.11);
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+  .cat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .cat-card:hover { text-decoration: none; }
+  .cat-icon { font-size: 1.6rem; }
+  .cat-name { font-size: 0.9rem; font-weight: 600; }
+  .coming-soon {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    color: var(--muted);
+  }
+  .coming-soon p { margin: 0.25rem 0; }
+</style>

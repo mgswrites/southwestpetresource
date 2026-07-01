@@ -1,54 +1,77 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ListingCard from '../components/ListingCard.astro';
 import GuideCard from '../components/GuideCard.astro';
-import { getCategories, getFeaturedListings, getGuides, getRegions } from '../lib/data';
+import { STATES, getGuides } from '../lib/data';
 
-const [categories, regions, featuredListings, guides] = await Promise.all([
-  getCategories(),
-  getRegions(),
-  getFeaturedListings(),
-  getGuides(),
-]);
+const guides = await getGuides();
 ---
 
-<BaseLayout title="Home" description="A Southwest regional directory of pet care resources for vets, rescues, groomers, trainers, boarding, and more.">
+<BaseLayout title="Home" description="Find trusted pet care resources across the Southwest — vets, boarding, groomers, pet-friendly hotels, and more.">
   <section class="hero">
-    <p class="pill">Regional pet care directory</p>
-    <h1>Find trusted pet care resources across Arizona, New Mexico, and Colorado.</h1>
-    <p>SW Pet Resource highlights veterinarians, rescues, groomers, trainers, boarding options, and pet-friendly places to play.</p>
+    <p class="pill">Southwest pet care directory</p>
+    <h1>Find trusted pet care in your state.</h1>
+    <p>Veterinarians, boarding, groomers, pet supply stores, and pet-friendly lodging across the Southwest.</p>
   </section>
 
   <section class="section">
-    <h2>Popular categories</h2>
-    <div class="grid">
-      {categories.slice(0, 6).map((category) => (
-        <article class="card">
-          <div class="cat-icon">{category.icon}</div>
-          <h3>{category.name}</h3>
-          <p class="meta">{category.description}</p>
-          <a href={`/listings/${category.slug}/${regions[0].slug}`} class="btn-link">Explore {regions[0].name}</a>
-        </article>
+    <h2>Choose your state</h2>
+    <div class="state-grid">
+      {STATES.map((state) => (
+        <a href={`/${state.slug}`} class="state-card">
+          <span class="state-abbr">{state.abbr}</span>
+          <span class="state-name">{state.name}</span>
+        </a>
       ))}
     </div>
   </section>
 
-  <section class="section">
-    <h2>Featured listings</h2>
-    <div class="list">
-      {featuredListings.map((listing) => <ListingCard listing={listing} />)}
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Helpful guides</h2>
-    <div class="list">
-      {guides.map((guide) => <GuideCard guide={guide} />)}
-    </div>
-  </section>
+  {guides.length > 0 && (
+    <section class="section">
+      <h2>Helpful guides</h2>
+      <div class="list">
+        {guides.map((guide) => <GuideCard guide={guide} />)}
+      </div>
+    </section>
+  )}
+</BaseLayout>
 
 <style>
-  .cat-icon { font-size: 1.75rem; margin-bottom: 0.4rem; }
-  .card h3 { margin-bottom: 0.25rem; font-size: 1rem; }
+  .state-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+  .state-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 1.75rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-decoration: none;
+    text-align: center;
+    transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
+    box-shadow: 0 2px 10px rgba(58, 94, 80, 0.05);
+  }
+  .state-card:hover {
+    box-shadow: 0 6px 22px rgba(58, 94, 80, 0.11);
+    border-color: var(--sage);
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+  .state-abbr {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--sage-dark);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .state-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--muted);
+  }
 </style>
-</BaseLayout>

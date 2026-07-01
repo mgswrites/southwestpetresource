@@ -2,6 +2,16 @@ import { neon } from '@neondatabase/serverless';
 
 const sql = neon(import.meta.env.DATABASE_URL);
 
+export const STATES = [
+  { name: 'California',  slug: 'california',  abbr: 'CA' },
+  { name: 'Nevada',      slug: 'nevada',       abbr: 'NV' },
+  { name: 'Arizona',     slug: 'arizona',      abbr: 'AZ' },
+  { name: 'New Mexico',  slug: 'new-mexico',   abbr: 'NM' },
+  { name: 'Utah',        slug: 'utah',         abbr: 'UT' },
+  { name: 'Colorado',    slug: 'colorado',     abbr: 'CO' },
+  { name: 'Texas',       slug: 'texas',        abbr: 'TX' },
+];
+
 const CATEGORY_ICONS = {
   'veterinary-clinics':   '🩺',
   'shelters-rescues':     '🐾',
@@ -142,4 +152,9 @@ export async function getGuides() {
 export async function getGuideBySlug(slug) {
   const rows = await sql`SELECT * FROM guides WHERE slug = ${slug} LIMIT 1`;
   return rows[0] ?? null;
+}
+
+export async function getRegionsByState(stateAbbr) {
+  const rows = await sql`SELECT id, name, slug, state FROM regions WHERE state = ${stateAbbr} ORDER BY name`;
+  return rows.map(r => ({ id: Number(r.id), name: String(r.name), slug: String(r.slug), state: String(r.state) }));
 }

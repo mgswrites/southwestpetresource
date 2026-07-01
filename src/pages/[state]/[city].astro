@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { STATES, getRegionsByState, getCategories, getRegionBySlug } from '../../lib/data';
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const state of STATES) {
+    const regions = await getRegionsByState(state.abbr);
+    for (const region of regions) {
+      paths.push({ params: { state: state.slug, city: region.slug }, props: { state, region } });
+    }
+  }
+  return paths;
+}
+
+const { state, region } = Astro.props as { state: typeof STATES[number]; region: { name: string; slug: string } };
+const categories = await getCategories();
+---
+
+<BaseLayout
+  title={`Pet Care in ${region.name}, ${state.abbr}`}
+  description={`Find veterinarians, boarding, groomers, pet supply stores, and pet-friendly lodging in ${region.name}, ${state.name}.`}
+>
+  <section class="hero">
+    <p class="pill"><a href={`/${state.slug}`}>{state.name}</a> · {region.name}</p>
+    <h1>Pet care in {region.name}</h1>
+    <p>Browse trusted local resources in {region.name}, {state.name}.</p>
+  </section>
+
+  <section class="section">
+    <h2>Categories</h2>
+    <div class="grid">
+      {categories.map((cat) => (
+        <a href={`/listings/${cat.slug}/${region.slug}`} class="card cat-card">
+          <span class="cat-icon">{cat.icon}</span>
+          <span class="cat-name">{cat.name}</span>
+          <span class="meta">{cat.description}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero .pill a { color: inherit; text-decoration: underline; }
+  .cat-card { display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text); }
+  .cat-card:hover { text-decoration: none; }
+  .cat-icon { font-size: 1.6rem; }
+  .cat-name { font-size: 0.95rem; font-weight: 600; margin-top: 0.2rem; }
+</style>
