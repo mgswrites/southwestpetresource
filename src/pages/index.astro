@@ -2,10 +2,14 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ListingCard from '../components/ListingCard.astro';
 import GuideCard from '../components/GuideCard.astro';
-import { categories, getFeaturedListings, getGuides, regions } from '../lib/data';
+import { getCategories, getFeaturedListings, getGuides, getRegions } from '../lib/data';
 
-const featuredListings = getFeaturedListings();
-const guides = getGuides();
+const [categories, regions, featuredListings, guides] = await Promise.all([
+  getCategories(),
+  getRegions(),
+  getFeaturedListings(),
+  getGuides(),
+]);
 ---
 
 <BaseLayout title="Home" description="A Southwest regional directory of pet care resources for vets, rescues, groomers, trainers, boarding, and more.">

@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import GuideCard from '../../components/GuideCard.astro';
 import { getGuides } from '../../lib/data';
 
-const guides = getGuides();
+const guides = await getGuides();
 ---
 
 <BaseLayout title="Guides" description="Editorial guides for choosing vets, finding low-cost clinics, and caring for rescue pets.">

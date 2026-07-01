@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import { getCategoryBySlug, getListingBySlug, listings, getRegionBySlug } from '../../../../lib/data';
+import { getCategoryBySlug, getAllListings } from '../../../../lib/data';
 
-export function getStaticPaths() {
-  return listings.flatMap((listing) =>
-    listing.categorySlugs.map((categorySlug) => ({
+export async function getStaticPaths() {
+  const allListings = await getAllListings();
+  return allListings.flatMap((listing) =>
+    (listing.categorySlugs as string[]).map((categorySlug: string) => ({
       params: { category: categorySlug, city: listing.citySlug, slug: listing.slug },
       props: { listing },
     }))
@@ -12,8 +13,7 @@ export function getStaticPaths() {
 }
 
 const { listing } = Astro.props;
-const category = getCategoryBySlug(listing.categorySlugs[0]);
-const region = getRegionBySlug(listing.citySlug);
+const category = await getCategoryBySlug(listing.categorySlugs[0]) as { name: string } | null;
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
