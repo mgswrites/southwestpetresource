@@ -7,10 +7,10 @@ import { getGuides } from '../lib/data';
 const guides = await getGuides();
 ---
 
-<BaseLayout title="Home" description="Find trusted pet care resources across the Southwest — vets, boarding, groomers, pet-friendly hotels, and more.">
-  <section class="hero">
-    <p class="pill">Southwest pet care directory</p>
-    <h1>Find trusted pet care in your state.</h1>
+<BaseLayout title="Home" description="Find trusted pet resources across the Southwest: vets, boarding, groomers, pet-friendly hotels, and more.">
+  <section class="hero hero-home">
+    <p class="pill" style="background: rgba(255,255,255,0.28); color: #fff; border: 1px solid rgba(255,255,255,0.4);">Southwest Pet Resources Directory</p>
+    <h1>Find trusted pet resources in your state.</h1>
     <p>Veterinarians, boarding, groomers, pet supply stores, and pet-friendly lodging across the Southwest.</p>
   </section>
 
@@ -41,6 +41,26 @@ const guides = await getGuides();
 </BaseLayout>
 
 <style>
+  .hero-home {
+    background: linear-gradient(135deg, rgba(58,94,80,0.82) 0%, rgba(90,130,114,0.82) 100%);
+    text-align: center;
+    padding: 4rem 2rem 3.75rem;
+    border: none;
+    border-left: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  }
+  .hero-home h1 {
+    color: #fff;
+    font-size: 2.4rem;
+    margin: 0.5rem 0 0.75rem;
+  }
+  .hero-home > p {
+    color: rgba(255,255,255,0.88);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
   .state-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

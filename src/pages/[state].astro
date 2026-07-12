@@ -16,7 +16,7 @@ const hasCities = regions.length > 0;
 ---
 
 <BaseLayout
-  title={`Pet Care in ${state.name}`}
+  title={`Pet Resources in ${state.name}`}
   description={`Find veterinarians, boarding, groomers, pet supply stores, and pet-friendly lodging in ${state.name}.`}
 >
   <div class="state-banner">
@@ -24,8 +24,8 @@ const hasCities = regions.length > 0;
     <div class="banner-overlay" />
     <div class="banner-text">
       <p class="pill pill-white">{state.abbr} · Southwest Pet Resource</p>
-      <h1>Pet care in {state.name}</h1>
-      <p>Browse trusted pet care resources across {state.name}.</p>
+      <h1>Pet resources in {state.name}</h1>
+      <p>Browse trusted pet resources across {state.name}.</p>
     </div>
   </div>
 
@@ -46,7 +46,7 @@ const hasCities = regions.length > 0;
         <h2>Browse by category</h2>
         <div class="grid">
           {categories.map((cat) => (
-            <a href={`/listings/${cat.slug}/${regions[0].slug}`} class="card cat-card">
+            <a href={`/listings/${cat.slug}`} class="card cat-card">
               <span class="cat-icon">{cat.icon}</span>
               <span class="cat-name">{cat.name}</span>
             </a>

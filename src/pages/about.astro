@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About"
+  description="About SW Pet Resource and its founder, M.G. Salazar, a Native New Mexican, Emmy Award-winning writer, and lifelong animal lover."
+>
+  <section class="hero">
+    <p class="pill">About this site</p>
+    <h1>About SW Pet Resource</h1>
+    <p>A practical, people-first directory for pet owners across the American Southwest.</p>
+  </section>
+
+  <section class="section">
+    <div class="panel about-block">
+      <h2>What This Is</h2>
+      <p>SW Pet Resource is a regional directory built to make it easier for pet owners to find trustworthy local care: veterinarians, boarding and daycare facilities, pet supply stores, and pet-friendly lodging, across Arizona, New Mexico, Colorado, Utah, Nevada, California, and Texas.</p>
+      <p>The Southwest is a big, spread-out place. Whether you're a longtime resident or passing through with your dog on a road trip, finding reliable, community-rooted pet resources shouldn't take an afternoon of searching. This site is built to change that.</p>
+      <p>Every listing is chosen for quality and community relevance, with a deliberate focus on independent, locally owned businesses over corporate chains.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="panel about-block">
+      <h2>About the Creator</h2>
+      <div class="bio">
+        <p>SW Pet Resource was created by <strong>M.G. Salazar</strong>, a Native New Mexican, two-time Creative Arts Emmy Award winner, and multi-disciplinary artist whose career has been dedicated to amplifying voices and stories rooted in the American Southwest.</p>
+        <p>Salazar is the author of three books, founder of <a href="https://laresistenciapress.com" target="_blank" rel="noopener">La Resistencia Press</a>, and holds a Professional Certification in Nonprofit Arts Management from NYU. As a writer, filmmaker, and cultural advocate, her work has long centered the landscapes, communities, and cultures of this region.</p>
+        <p>She is also a lifelong animal lover and the devoted companion of three rescue dogs. The recurring challenge of finding trusted, independent pet care while moving between Southwest cities is what led her to build this directory. She hopes to open a rescue of her own someday.</p>
+        <p>SW Pet Resource is a natural extension of her broader work: building practical, community-minded resources for people who love the Southwest and everything in it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="panel about-block">
+      <h2>Get in Touch</h2>
+      <p>Have a business to suggest, a correction to report, or just want to say hello? Reach out at <a href="mailto:hello@swpetresource.com">hello@swpetresource.com</a>.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-block {
+    max-width: 720px;
+  }
+  .about-block h2 {
+    margin-top: 0;
+    color: var(--sage-dark);
+    font-size: 1.3rem;
+  }
+  .about-block p {
+    line-height: 1.75;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .about-block p:last-child { margin-bottom: 0; }
+</style>

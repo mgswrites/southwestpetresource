@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The page you were looking for doesn't exist. Browse the SW Pet Resource directory to find vets, boarding, groomers, and more."
+>
+  <section class="hero">
+    <h1>Page not found</h1>
+    <p>That page doesn't exist or may have moved. Try searching the directory or browse by state below.</p>
+  </section>
+
+  <section class="section">
+    <h2>Browse the directory</h2>
+    <div class="grid">
+      <a href="/listings/veterinary-clinics" class="card">
+        <span style="font-size:1.4rem">🩺</span>
+        <strong>Veterinarians</strong>
+      </a>
+      <a href="/listings/boarding-daycare" class="card">
+        <span style="font-size:1.4rem">🏡</span>
+        <strong>Boarding & Daycare</strong>
+      </a>
+      <a href="/listings/groomers" class="card">
+        <span style="font-size:1.4rem">✂️</span>
+        <strong>Groomers</strong>
+      </a>
+      <a href="/listings/pet-supply" class="card">
+        <span style="font-size:1.4rem">🛍️</span>
+        <strong>Pet Supply</strong>
+      </a>
+      <a href="/listings/pet-friendly-lodging" class="card">
+        <span style="font-size:1.4rem">🏨</span>
+        <strong>Pet-Friendly Lodging</strong>
+      </a>
+      <a href="/listings/shelters-rescues" class="card">
+        <span style="font-size:1.4rem">🐾</span>
+        <strong>Shelters & Rescues</strong>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Browse by state</h2>
+    <div class="state-grid">
+      <a href="/arizona" class="state-link">Arizona</a>
+      <a href="/new-mexico" class="state-link">New Mexico</a>
+      <a href="/colorado" class="state-link">Colorado</a>
+      <a href="/utah" class="state-link">Utah</a>
+      <a href="/nevada" class="state-link">Nevada</a>
+      <a href="/texas" class="state-link">Texas</a>
+      <a href="/california" class="state-link">California</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <p><a href="/search">Search the full directory →</a></p>
+  </section>
+</BaseLayout>
+
+<style>
+  .card { display: flex; flex-direction: column; gap: 0.4rem; text-decoration: none; color: var(--text); }
+  .card:hover { text-decoration: none; }
+  .state-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .state-link {
+    padding: 0.45rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--sage-dark);
+    text-decoration: none;
+    transition: border-color 0.12s, background 0.12s;
+  }
+  .state-link:hover { border-color: var(--sage); background: var(--sage-xsoft); text-decoration: none; }
+</style>

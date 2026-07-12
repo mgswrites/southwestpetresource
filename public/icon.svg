@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+<clipPath id="circleClip"><circle cx="100" cy="100" r="96"/></clipPath>
+<circle cx="100" cy="100" r="96" fill="#F1E3C6"/>
+<g clip-path="url(#circleClip)">
+<path d="M45.50,80.16 L11.93,73.41 L15.44,63.76 Z" fill="#C1502E"/>
+<path d="M53.99,64.69 L24.00,48.16 L30.25,40.01 Z" fill="#C1502E"/>
+<path d="M66.73,52.49 L43.11,27.70 L51.52,21.81 Z" fill="#C1502E"/>
+<path d="M82.56,44.68 L67.48,13.94 L77.28,10.85 Z" fill="#C1502E"/>
+<path d="M100.00,42.00 L94.86,8.14 L105.14,8.14 Z" fill="#C1502E"/>
+<path d="M117.44,44.68 L122.72,10.85 L132.52,13.94 Z" fill="#C1502E"/>
+<path d="M133.27,52.49 L148.48,21.81 L156.89,27.70 Z" fill="#C1502E"/>
+<path d="M146.01,64.69 L169.75,40.01 L176.00,48.16 Z" fill="#C1502E"/>
+<path d="M154.50,80.16 L184.56,63.76 L188.07,73.41 Z" fill="#C1502E"/>
+<circle cx="100" cy="70" r="22" fill="#C1502E"/>
+
+<path d="M0,150 L28,150 L40,128 L55,128 L64,112 L82,112 L90,100 L108,100 L118,116 L136,116 L146,132 L162,132 L172,150 L200,150 L200,200 L0,200 Z" fill="#8C5A3C" fill-opacity="0.55"/>
+<path d="M0,162 L20,162 L34,142 L58,142 L70,124 L96,124 L108,140 L128,140 L138,156 L158,156 L168,162 L200,162 L200,200 L0,200 Z" fill="#2B2320"/>
+
+<g transform="translate(100,165) scale(1.0)">
+<ellipse cx="0" cy="10" rx="13" ry="10" fill="#D4A24C"/>
+<ellipse cx="-17" cy="-7" rx="5.6" ry="7.2" fill="#D4A24C"/>
+<ellipse cx="-6.5" cy="-15" rx="5.6" ry="7.4" fill="#D4A24C"/>
+<ellipse cx="6.5" cy="-15" rx="5.6" ry="7.4" fill="#D4A24C"/>
+<ellipse cx="17" cy="-7" rx="5.6" ry="7.2" fill="#D4A24C"/>
+</g>
+</g>
+<circle cx="100" cy="100" r="96" fill="none" stroke="#2B2320" stroke-width="2" stroke-opacity="0.15"/>
+</svg>

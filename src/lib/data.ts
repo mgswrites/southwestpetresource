@@ -198,6 +198,19 @@ export async function getListingBySlug(slug: string): Promise<Listing | null> {
   return rows[0] ? normalizeListing(rows[0] as Record<string, unknown>) : null;
 }
 
+export async function getCitiesForCategory(categorySlug: string): Promise<Array<{name: string, slug: string, state: string}>> {
+  const rows = await sql`
+    SELECT DISTINCT r.name, r.slug, r.state
+    FROM regions r
+    JOIN listings l ON l.region_id = r.id
+    JOIN listing_categories lc ON lc.listing_id = l.id
+    JOIN categories c ON c.id = lc.category_id
+    WHERE c.slug = ${categorySlug}
+    ORDER BY r.state, r.name
+  `;
+  return rows.map(r => ({ name: r.name as string, slug: r.slug as string, state: r.state as string }));
+}
+
 export async function getGuides(): Promise<Guide[]> {
   const rows = await sql`
     SELECT id, title, slug, excerpt, body

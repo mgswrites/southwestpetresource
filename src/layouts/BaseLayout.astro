@@ -3,6 +3,11 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 const { title, description, schema } = Astro.props;
+const siteUrl = 'https://www.southwestpetresource.com';
+const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
+const pageTitle = title ? `${title} | SW Pet Resource` : 'SW Pet Resource';
+const pageDesc = description || 'A regional directory of pet resources in Arizona, New Mexico, Colorado, and the American Southwest.';
+const ogImage = `https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200&h=630&fit=crop&auto=format`;
 ---
 
 <!doctype html>
@@ -10,8 +15,19 @@ const { title, description, schema } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description || 'A regional directory of pet care resources in Arizona, New Mexico, and Colorado.'} />
-    <title>{title ? `${title} | SW Pet Resource` : 'SW Pet Resource'}</title>
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="description" content={pageDesc} />
+    <title>{pageTitle}</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SW Pet Resource" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDesc} />
+    <meta name="twitter:image" content={ogImage} />
     {schema ? <script type="application/ld+json" set:html={JSON.stringify(schema)} /> : null}
   </head>
   <body>
@@ -50,8 +66,14 @@ const { title, description, schema } = Astro.props;
 
   body {
     margin: 0;
-    background: var(--bg);
     color: var(--text);
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(rgba(237,244,239,0.72), rgba(237,244,239,0.72)),
+      url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1920&auto=format&fit=crop&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
   }
 
   a { color: var(--blue); text-decoration: none; }
@@ -67,7 +89,8 @@ const { title, description, schema } = Astro.props;
   /* full-width footer stripe */
   .footer-bar {
     background: var(--surface);
-    border-top: 1px solid var(--border);
+    border-top: 3px solid var(--sage);
+    box-shadow: 0 -2px 8px rgba(58, 94, 80, 0.07);
     margin-top: 3rem;
   }
 
@@ -77,9 +100,9 @@ const { title, description, schema } = Astro.props;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+    gap: 1.5rem;
   }
+  .brand-wrap { flex-shrink: 0; }
 
   .brand { font-size: 1.2rem; font-weight: 700; color: var(--sage-dark); }
   .brand:hover { text-decoration: none; color: var(--sage); }
@@ -154,6 +177,12 @@ const { title, description, schema } = Astro.props;
     font-size: 0.8rem;
     font-weight: 500;
   }
+  .hero-home .pill {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.35);
+    backdrop-filter: blur(6px);
+  }
   .pill-blue {
     background: var(--blue-soft);
     color: var(--blue-dark);
@@ -186,6 +215,30 @@ const { title, description, schema } = Astro.props;
 
   .section { margin-top: 2rem; }
   .section h2 { margin-bottom: 0.85rem; color: var(--sage-dark); }
+
+  /* breadcrumb nav */
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .breadcrumb a { color: var(--muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--sage-dark); text-decoration: underline; }
+  .breadcrumb .sep { opacity: 0.5; }
+
+  /* guide prose */
+  .guide-body { max-width: 720px; }
+  .guide-body h2 { color: var(--sage-dark); font-size: 1.3rem; margin-top: 2rem; margin-bottom: 0.5rem; }
+  .guide-body h3 { color: var(--sage-dark); font-size: 1.05rem; margin-top: 1.5rem; margin-bottom: 0.35rem; }
+  .guide-body p { line-height: 1.75; margin-bottom: 1rem; }
+  .guide-body ul, .guide-body ol { padding-left: 1.4rem; margin-bottom: 1rem; }
+  .guide-body li { line-height: 1.7; margin-bottom: 0.35rem; }
+  .guide-body a { color: var(--blue); }
+  .guide-body strong { color: var(--text); }
 
   footer { color: var(--muted); font-size: 0.88rem; padding-top: 1.25rem; padding-bottom: 1.25rem; }
 </style>

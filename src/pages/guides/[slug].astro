@@ -17,7 +17,7 @@ const entry = (await getGuideBySlug(guide.slug)) ?? guide;
     <p>{entry.excerpt}</p>
   </section>
 
-  <section class="section">
-    <p>{entry.body}</p>
+  <section class="section guide-body">
+    <Fragment set:html={entry.body} />
   </section>
 </BaseLayout>

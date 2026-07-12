@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Suggest a Listing"
+  description="Know a great vet, groomer, boarding facility, or pet-friendly spot in the Southwest? Submit it here and we'll review it for the directory."
+>
+  <section class="hero">
+    <h1>Suggest a Listing</h1>
+    <p>Know a great vet, groomer, boarding facility, or other pet resource in the Southwest? We want to hear about it. Fill out the form below and we'll review it for the directory.</p>
+  </section>
+
+  <section class="section">
+    <form
+      class="suggest-form"
+      action="mailto:mgswrites@gmail.com"
+      method="POST"
+      enctype="text/plain"
+    >
+
+      <div class="field-group">
+        <div class="field">
+          <label for="biz-name">Business name <span class="req">*</span></label>
+          <input type="text" id="biz-name" name="business_name" required placeholder="Desert Paws Animal Clinic" />
+        </div>
+        <div class="field">
+          <label for="category">Category <span class="req">*</span></label>
+          <select id="category" name="category" required>
+            <option value="">Select a category</option>
+            <option>Veterinary Clinic</option>
+            <option>Boarding &amp; Daycare</option>
+            <option>Groomer</option>
+            <option>Pet Supply Store</option>
+            <option>Pet-Friendly Lodging</option>
+            <option>Shelter / Rescue</option>
+            <option>Spay &amp; Neuter Clinic</option>
+            <option>Trainer</option>
+            <option>Pet Sitter / Dog Walker</option>
+            <option>Dog Park / Trail</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <div class="field">
+          <label for="city">City <span class="req">*</span></label>
+          <input type="text" id="city" name="city" required placeholder="Albuquerque" />
+        </div>
+        <div class="field">
+          <label for="state">State <span class="req">*</span></label>
+          <select id="state" name="state" required>
+            <option value="">Select a state</option>
+            <option>Arizona</option>
+            <option>California</option>
+            <option>Colorado</option>
+            <option>Nevada</option>
+            <option>New Mexico</option>
+            <option>Texas</option>
+            <option>Utah</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="address">Street address</label>
+        <input type="text" id="address" name="address" placeholder="123 Main St" />
+      </div>
+
+      <div class="field-group">
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input type="tel" id="phone" name="phone" placeholder="(505) 555-0100" />
+        </div>
+        <div class="field">
+          <label for="website">Website</label>
+          <input type="url" id="website" name="website" placeholder="https://example.com" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="notes">Anything else we should know?</label>
+        <textarea id="notes" name="notes" rows="4" placeholder="Hours, specialties, why you recommend this place..."></textarea>
+      </div>
+
+      <div class="field">
+        <label for="your-email">Your email <span class="req">*</span></label>
+        <input type="email" id="your-email" name="email" required placeholder="you@example.com" />
+        <p class="field-hint">We'll only use this to follow up if we have questions. We won't add you to any list.</p>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit listing</button>
+    </form>
+  </section>
+</BaseLayout>
+
+<style>
+  .suggest-form {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .field-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  @media (max-width: 520px) {
+    .field-group { grid-template-columns: 1fr; }
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .req { color: var(--sage); }
+  input, select, textarea {
+    padding: 0.55rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-family: inherit;
+    background: var(--surface);
+    color: var(--text);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--sage);
+    box-shadow: 0 0 0 3px rgba(90,130,114,0.15);
+  }
+  textarea { resize: vertical; }
+  .field-hint {
+    margin: 0.15rem 0 0;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .submit-btn {
+    align-self: flex-start;
+    padding: 0.65rem 1.5rem;
+    background: var(--sage);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .submit-btn:hover { background: var(--sage-dark); }
+</style>

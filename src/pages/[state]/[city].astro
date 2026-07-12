@@ -20,12 +20,19 @@ const categories = await getCategories();
 ---
 
 <BaseLayout
-  title={`Pet Care in ${region.name}, ${state.abbr}`}
+  title={`Pet Resources in ${region.name}, ${state.abbr}`}
   description={`Find veterinarians, boarding, groomers, pet supply stores, and pet-friendly lodging in ${region.name}, ${state.name}.`}
 >
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep" aria-hidden="true">›</span>
+    <a href={`/${state.slug}`}>{state.name}</a>
+    <span class="sep" aria-hidden="true">›</span>
+    <span>{region.name}</span>
+  </nav>
+
   <section class="hero">
-    <p class="pill"><a href={`/${state.slug}`}>{state.name}</a> · {region.name}</p>
-    <h1>Pet care in {region.name}</h1>
+    <h1>Pet resources in {region.name}</h1>
     <p>Browse trusted local resources in {region.name}, {state.name}.</p>
   </section>
 

@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Search"
+  description="Search the SW Pet Resource directory for vets, boarding, groomers, pet supply stores, and more across the American Southwest."
+>
+  <section class="hero">
+    <h1>Search</h1>
+    <p>Search the directory for vets, boarding, groomers, pet supply, lodging, and more across the Southwest.</p>
+  </section>
+
+  <section class="section">
+    <div id="search"></div>
+  </section>
+</BaseLayout>
+
+<link rel="stylesheet" href="/_pagefind/pagefind-ui.css" />
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    // @ts-ignore — pagefind UI is injected at build time
+    new window.PagefindUI({ element: '#search', showImages: false, showEmptyFilters: false });
+  });
+</script>
+
+<script src="/_pagefind/pagefind-ui.js" is:inline></script>
+
+<style is:global>
+  #search .pagefind-ui__search-input {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 0.65rem 1rem;
+    background: var(--surface);
+    color: var(--text);
+  }
+  #search .pagefind-ui__search-input:focus {
+    outline: none;
+    border-color: var(--sage);
+    box-shadow: 0 0 0 3px rgba(90,130,114,0.15);
+  }
+  #search .pagefind-ui__result {
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+  }
+  #search .pagefind-ui__result-title a {
+    color: var(--sage-dark);
+    font-weight: 600;
+  }
+  #search .pagefind-ui__result-excerpt {
+    color: var(--muted);
+    font-size: 0.88rem;
+    margin-top: 0.25rem;
+  }
+  #search .pagefind-ui__button {
+    background: var(--sage);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  #search .pagefind-ui__button:hover { background: var(--sage-dark); }
+</style>

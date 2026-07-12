@@ -1,4 +1,95 @@
 <footer>
-  <p>SW Pet Resource is a practical guide for pet owners looking for trustworthy local care.</p>
-  <p><a href="/guides">Browse guides</a> • <a href="/ads.txt">ads.txt</a></p>
+  <div class="footer-main">
+    <a href="/" class="brand">
+      <img src="/icon.svg" alt="SW Pet Resource logo" class="brand-icon" />
+      <span class="brand-text">SW Pet Resource</span>
+    </a>
+    <div class="footer-links">
+      <nav class="footer-nav" aria-label="Footer primary navigation">
+        <a href="/">Home</a>
+        <a href="/guides">Guides</a>
+        <a href="/about">About</a>
+        <a href="/search">Search</a>
+        <a href="/suggest">Suggest a Listing</a>
+      </nav>
+      <span class="divider" aria-hidden="true"></span>
+      <nav class="footer-nav" aria-label="Footer category navigation">
+        <a href="/listings/veterinary-clinics">Veterinarians</a>
+        <a href="/listings/boarding-daycare">Boarding & Daycare</a>
+        <a href="/listings/pet-supply">Pet Supply</a>
+        <a href="/listings/pet-friendly-lodging">Pet-Friendly Lodging</a>
+      </nav>
+    </div>
+  </div>
+  <p class="footer-tagline">A practical guide for pet owners across the American Southwest.</p>
 </footer>
+
+<style>
+  footer {
+    padding: 1.5rem 0 1.25rem;
+  }
+  .footer-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .brand:hover { text-decoration: none; }
+  .brand-icon { height: 38px; width: 38px; }
+  .brand-text {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--sage-dark);
+    white-space: nowrap;
+  }
+  .brand:hover .brand-text { color: var(--sage); }
+  .footer-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+  }
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+  }
+  .footer-nav a {
+    padding: 0.28rem 0.65rem;
+    border-radius: 6px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background 0.12s, color 0.12s;
+    text-decoration: none;
+  }
+  .footer-nav a:hover {
+    background: var(--sage-xsoft);
+    color: var(--sage-dark);
+    text-decoration: none;
+  }
+  .divider {
+    display: inline-block;
+    width: 1px;
+    height: 1rem;
+    background: var(--border);
+    margin: 0 0.25rem;
+    align-self: center;
+  }
+  .footer-tagline {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.82rem;
+    border-top: 1px solid var(--border);
+    padding-top: 0.85rem;
+  }
+</style>

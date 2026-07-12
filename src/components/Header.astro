@@ -1,19 +1,77 @@
 ---
 const currentPath = Astro.url.pathname;
-const navItems = [
+const primaryNav = [
   { href: '/', label: 'Home' },
   { href: '/guides', label: 'Guides' },
+  { href: '/about', label: 'About' },
+  { href: '/search', label: 'Search' },
+];
+const catNav = [
+  { href: '/listings/veterinary-clinics',    label: 'Veterinarians' },
+  { href: '/listings/boarding-daycare',      label: 'Boarding & Daycare' },
+  { href: '/listings/pet-supply',            label: 'Pet Supply' },
+  { href: '/listings/pet-friendly-lodging',  label: 'Pet-Friendly Lodging' },
 ];
 ---
 
 <header>
-  <div class="brand-wrap">
-    <a href="/" class="brand">SW Pet Resource</a>
-    <p class="tagline">A regional directory of pet care resources across Arizona, New Mexico, and Colorado.</p>
-  </div>
-  <nav aria-label="Primary navigation">
-    {navItems.map((item) => (
+  <a href="/" class="brand">
+    <img src="/icon.svg" alt="SW Pet Resource logo" class="brand-icon" />
+    <span class="brand-text">SW Pet Resource</span>
+  </a>
+  <nav aria-label="Site navigation">
+    {primaryNav.map(item => (
       <a href={item.href} class={currentPath === item.href ? 'active' : ''}>{item.label}</a>
+    ))}
+    <span class="divider" aria-hidden="true"></span>
+    {catNav.map(item => (
+      <a href={item.href} class={`cat-link${currentPath.startsWith(item.href) ? ' active' : ''}`}>{item.label}</a>
     ))}
   </nav>
 </header>
+
+<style>
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .brand:hover { text-decoration: none; }
+  .brand-icon {
+    height: 44px;
+    width: 44px;
+  }
+  .brand-text {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--sage-dark);
+    white-space: nowrap;
+  }
+  .brand:hover .brand-text { color: var(--sage); }
+  .divider {
+    display: inline-block;
+    width: 1px;
+    height: 1rem;
+    background: var(--border);
+    margin: 0 0.25rem;
+    vertical-align: middle;
+  }
+  .cat-link {
+    font-size: 0.8rem;
+  }
+
+  /* mobile: stack nav below brand */
+  @media (max-width: 720px) {
+    header {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    nav {
+      flex-wrap: wrap;
+      width: 100%;
+    }
+    .divider { display: none; }
+  }
+</style>

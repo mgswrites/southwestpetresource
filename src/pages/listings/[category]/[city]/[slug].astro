@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import { getCategoryBySlug, getAllListings } from '../../../../lib/data';
+import { STATES } from '../../../../lib/states';
 
 export async function getStaticPaths() {
   const allListings = await getAllListings();
@@ -14,6 +15,7 @@ export async function getStaticPaths() {
 
 const { listing } = Astro.props;
 const category = await getCategoryBySlug(listing.categorySlugs[0]) as { name: string } | null;
+const stateData = STATES.find(s => s.abbr === listing.state);
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
@@ -31,10 +33,21 @@ const schema = {
 ---
 
 <BaseLayout title={listing.name} description={listing.description} schema={schema}>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep" aria-hidden="true">›</span>
+    <a href={`/listings/${listing.categorySlugs[0]}`}>{category?.name}</a>
+    <span class="sep" aria-hidden="true">›</span>
+    {stateData && <><a href={`/${stateData.slug}`}>{stateData.name}</a><span class="sep" aria-hidden="true">›</span></>}
+    <a href={`/listings/${listing.categorySlugs[0]}/${listing.citySlug}`}>{listing.city}</a>
+    <span class="sep" aria-hidden="true">›</span>
+    <span>{listing.name}</span>
+  </nav>
+
   <section class="hero">
     <p class="pill">{category?.name}</p>
     <h1>{listing.name}</h1>
-    <p>{listing.city}, {listing.state}</p>
+    <p class="meta">{listing.city}, {listing.state}</p>
     <p>{listing.description}</p>
   </section>
 
