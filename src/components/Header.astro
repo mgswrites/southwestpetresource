@@ -24,7 +24,7 @@ const rightNav = [
     </a>
     <nav aria-label="Site navigation" class="nav-left">
       {leftNav.map(item => (
-        <a href={item.href} class={currentPath === item.href ? 'active' : ''}>{item.label}</a>
+        <a href={item.href} class={`home-link${currentPath === item.href ? ' active' : ''}`}>{item.label}</a>
       ))}
       <span class="divider" aria-hidden="true"></span>
       {catNav.map(item => (
@@ -74,6 +74,9 @@ const rightNav = [
   }
   .cat-link {
     font-size: 0.8rem;
+  }
+  .home-link {
+    border-radius: 999px;
   }
 
   /* mobile: stack nav below brand */
