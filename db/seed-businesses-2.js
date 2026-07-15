@@ -1,4 +1,4 @@
-1import { Client } from '@neondatabase/serverless';
+import { Client } from '@neondatabase/serverless';
 
 const listings = [
   // ── SACRAMENTO, CA ────────────────────────────────────────────────────────
