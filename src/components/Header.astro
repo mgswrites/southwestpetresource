@@ -1,10 +1,7 @@
 ---
 const currentPath = Astro.url.pathname;
-const primaryNav = [
+const leftNav = [
   { href: '/', label: 'Home' },
-  { href: '/guides', label: 'Guides' },
-  { href: '/about', label: 'About' },
-  { href: '/search', label: 'Search' },
 ];
 const catNav = [
   { href: '/listings/veterinary-clinics',    label: 'Veterinarians' },
@@ -12,25 +9,42 @@ const catNav = [
   { href: '/listings/pet-supply',            label: 'Pet Supply' },
   { href: '/listings/pet-friendly-lodging',  label: 'Pet-Friendly Lodging' },
 ];
+const rightNav = [
+  { href: '/guides', label: 'Guides' },
+  { href: '/about', label: 'About' },
+  { href: '/search', label: 'Search' },
+];
 ---
 
 <header>
-  <a href="/" class="brand">
-    <img src="/icon.svg" alt="SW Pet Resource logo" class="brand-icon" />
-    <span class="brand-text">SW Pet Resource</span>
-  </a>
-  <nav aria-label="Site navigation">
-    {primaryNav.map(item => (
+  <div class="header-left">
+    <a href="/" class="brand">
+      <img src="/icon.svg" alt="SW Pet Resource logo" class="brand-icon" />
+      <span class="brand-text">SW Pet Resource</span>
+    </a>
+    <nav aria-label="Site navigation" class="nav-left">
+      {leftNav.map(item => (
+        <a href={item.href} class={currentPath === item.href ? 'active' : ''}>{item.label}</a>
+      ))}
+      <span class="divider" aria-hidden="true"></span>
+      {catNav.map(item => (
+        <a href={item.href} class={`cat-link${currentPath.startsWith(item.href) ? ' active' : ''}`}>{item.label}</a>
+      ))}
+    </nav>
+  </div>
+  <nav aria-label="Utility navigation" class="nav-right">
+    {rightNav.map(item => (
       <a href={item.href} class={currentPath === item.href ? 'active' : ''}>{item.label}</a>
-    ))}
-    <span class="divider" aria-hidden="true"></span>
-    {catNav.map(item => (
-      <a href={item.href} class={`cat-link${currentPath.startsWith(item.href) ? ' active' : ''}`}>{item.label}</a>
     ))}
   </nav>
 </header>
 
 <style>
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
   .brand {
     display: flex;
     align-items: center;
@@ -67,6 +81,10 @@ const catNav = [
     header {
       flex-wrap: wrap;
       gap: 0.5rem;
+    }
+    .header-left {
+      flex-wrap: wrap;
+      width: 100%;
     }
     nav {
       flex-wrap: wrap;
