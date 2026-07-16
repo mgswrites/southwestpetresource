@@ -13,8 +13,22 @@ const guides = await getGuides();
   </section>
 
   <section class="section">
-    <div class="list">
+    <div class="guide-grid">
       {guides.map((guide) => <GuideCard guide={guide} />)}
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 900px) {
+    .guide-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .guide-grid { grid-template-columns: 1fr; }
+  }
+</style>
