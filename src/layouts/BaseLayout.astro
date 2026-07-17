@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 const { title, description, schema } = Astro.props;
 const siteUrl = 'https://www.southwestpetresource.com';
 const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
-const pageTitle = title ? `${title} | SW Pet Resource` : 'SW Pet Resource';
+const pageTitle = title ? `${title} | Southwest Pet Resource` : 'Southwest Pet Resource';
 const pageDesc = description || 'A regional directory of pet resources in Arizona, New Mexico, Colorado, and the American Southwest.';
 const ogImage = `https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200&h=630&fit=crop&auto=format`;
 ---
@@ -20,7 +20,7 @@ const ogImage = `https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=120
     <meta name="description" content={pageDesc} />
     <title>{pageTitle}</title>
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="SW Pet Resource" />
+    <meta property="og:site_name" content="Southwest Pet Resource" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDesc} />
     <meta property="og:url" content={canonicalUrl} />
