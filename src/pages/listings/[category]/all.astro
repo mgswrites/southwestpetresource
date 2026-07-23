@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ListingCard from '../../../components/ListingCard.astro';
+import { getCategories, getCategoryBySlug, getListingsForCategory } from '../../../lib/data';
+import { STATES } from '../../../lib/states';
+
+export async function getStaticPaths() {
+  const categories = await getCategories();
+  return categories.map((category) => ({
+    params: { category: category.slug },
+    props: { categorySlug: category.slug },
+  }));
+}
+
+const { categorySlug } = Astro.props;
+const [category, listings] = await Promise.all([
+  getCategoryBySlug(categorySlug),
+  getListingsForCategory(categorySlug),
+]);
+
+const stateNames = Object.fromEntries(STATES.map(s => [s.abbr, s.name]));
+
+const byState = new Map<string, typeof listings>();
+for (const listing of listings) {
+  if (!byState.has(listing.state)) byState.set(listing.state, []);
+  byState.get(listing.state)!.push(listing);
+}
+---
+
+<BaseLayout
+  title={`All ${category?.name || categorySlug}`}
+  description={`Browse every ${category?.name?.toLowerCase() || categorySlug} listing across the Southwest, all on one page.`}
+>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep" aria-hidden="true">›</span>
+    <a href={`/listings/${categorySlug}`}>{category?.name || categorySlug}</a>
+    <span class="sep" aria-hidden="true">›</span>
+    <span>All listings</span>
+  </nav>
+
+  <section class="hero">
+    <h1>All {category?.name || categorySlug}</h1>
+    <p>Every {category?.name?.toLowerCase() || 'listing'} in the directory, across all states, on one page.</p>
+  </section>
+
+  {listings.length > 0 ? (
+    [...byState.entries()].map(([abbr, stateListings]) => (
+      <section class="section">
+        <h2>{stateNames[abbr] ?? abbr}</h2>
+        <div class="list">
+          {stateListings.map((listing) => <ListingCard listing={listing} />)}
+        </div>
+      </section>
+    ))
+  ) : (
+    <section class="section">
+      <p>No listings have been added for this category yet.</p>
+    </section>
+  )}
+</BaseLayout>

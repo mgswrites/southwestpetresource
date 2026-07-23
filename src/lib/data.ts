@@ -178,6 +178,26 @@ export async function getListingsForCategoryAndCity(categorySlug: string, citySl
   return rows.map(r => normalizeListing(r as Record<string, unknown>));
 }
 
+export async function getListingsForCategory(categorySlug: string): Promise<Listing[]> {
+  const rows = await sql`
+    SELECT
+      l.id, l.name, l.slug, l.city, l.state, l.address, l.phone, l.website,
+      l.description, l.featured, l.verified, r.slug AS city_slug,
+      array_agg(DISTINCT c.slug) AS category_slugs,
+      coalesce(array_agg(DISTINCT t.name) FILTER (WHERE t.name IS NOT NULL), '{}') AS tags
+    FROM listings l
+    JOIN regions r             ON l.region_id = r.id
+    JOIN listing_categories lc ON l.id = lc.listing_id
+    JOIN categories c          ON lc.category_id = c.id
+    LEFT JOIN listing_tags lt  ON l.id = lt.listing_id
+    LEFT JOIN tags t           ON lt.tag_id = t.id
+    WHERE c.slug = ${categorySlug}
+    GROUP BY l.id, r.slug, r.state, r.name
+    ORDER BY r.state, r.name, l.name
+  `;
+  return rows.map(r => normalizeListing(r as Record<string, unknown>));
+}
+
 export async function getListingBySlug(slug: string): Promise<Listing | null> {
   const rows = await sql`
     SELECT
