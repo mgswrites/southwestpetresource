@@ -54,11 +54,11 @@ const DEFAULT_GUIDE_IMAGE = 'https://images.unsplash.com/photo-1548199973-03cce0
 const CATEGORY_ICONS: Record<string, string> = {
   'veterinary-clinics':   '🩺',
   'shelters-rescues':     '🐾',
-  'spay-neuter':          '🧑‍⚕️',
+  'spay-neuter':          '🧑🏾‍⚕️',
   'groomers':             '✂️',
   'boarding-daycare':     '🏡',
   'trainers':             '🎾',
-  'pet-sitters':          '🚶',
+  'pet-sitters':          '🚶🏾',
   'pet-supply':           '🛍️',
   'dog-parks-trails':     '🌲',
   'pet-friendly-lodging': '🏨',
