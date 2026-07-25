@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import GuideCard from '../../components/GuideCard.astro';
+import AffiliateCallout from '../../components/AffiliateCallout.astro';
 import { getGuides } from '../../lib/data';
 
 const guides = await getGuides();
@@ -16,6 +17,10 @@ const guides = await getGuides();
     <div class="guide-grid">
       {guides.map((guide) => <GuideCard guide={guide} />)}
     </div>
+  </section>
+
+  <section class="section">
+    <AffiliateCallout />
   </section>
 </BaseLayout>
 
