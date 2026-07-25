@@ -41,7 +41,15 @@ export interface Guide {
   slug: string;
   excerpt: string;
   body: string;
+  image: string;
 }
+
+const GUIDE_IMAGES: Record<string, string> = {
+  'low-cost-spay-neuter-rural':          'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=1400&h=500&fit=crop&auto=format',
+  'why-backyard-breeding-hurts':         'https://images.unsplash.com/photo-1544568100-847a948585b9?w=1400&h=500&fit=crop&auto=format',
+  'tips-traveling-with-pets-southwest':  'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=1400&h=500&fit=crop&auto=format',
+};
+const DEFAULT_GUIDE_IMAGE = 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1400&h=500&fit=crop&auto=format';
 
 const CATEGORY_ICONS: Record<string, string> = {
   'veterinary-clinics':   '🩺',
@@ -243,6 +251,7 @@ export async function getGuides(): Promise<Guide[]> {
     slug:    r.slug as string,
     excerpt: r.excerpt as string,
     body:    r.body as string,
+    image:   GUIDE_IMAGES[r.slug as string] ?? DEFAULT_GUIDE_IMAGE,
   }));
 }
 
@@ -250,5 +259,12 @@ export async function getGuideBySlug(slug: string): Promise<Guide | null> {
   const rows = await sql`SELECT * FROM guides WHERE slug = ${slug} LIMIT 1`;
   const r = rows[0];
   if (!r) return null;
-  return { id: r.id as number, title: r.title as string, slug: r.slug as string, excerpt: r.excerpt as string, body: r.body as string };
+  return {
+    id: r.id as number,
+    title: r.title as string,
+    slug: r.slug as string,
+    excerpt: r.excerpt as string,
+    body: r.body as string,
+    image: GUIDE_IMAGES[r.slug as string] ?? DEFAULT_GUIDE_IMAGE,
+  };
 }
