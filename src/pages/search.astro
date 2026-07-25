@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AffiliateCallout from '../components/AffiliateCallout.astro';
 ---
 
 <BaseLayout
@@ -13,6 +14,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section class="section">
     <div id="search"></div>
+  </section>
+
+  <section class="section">
+    <AffiliateCallout
+      label="🩹 Safety pick"
+      copy="Every pet owner should have one of these on hand. A compact first-aid kit for dogs and cats, ready for the trail, the car, or home."
+      href="https://amzn.to/4vSsRZ5"
+    />
   </section>
 </BaseLayout>
 

@@ -1,10 +1,20 @@
 ---
+interface Props {
+  label?: string;
+  copy?: string;
+  href?: string;
+}
+const {
+  label = '🎒 Gear pick',
+  copy = 'Heading out with your pet? This portable pet water dispenser is a handy pick for hikes, road trips, and campsites.',
+  href = 'https://amzn.to/4vT4Elx',
+} = Astro.props as Props;
 ---
 
 <div class="panel affiliate-callout">
-  <p class="callout-label">🎒 Gear pick</p>
-  <p class="callout-copy">Heading out with your pet? This portable pet water dispenser is a handy pick for hikes, road trips, and campsites.</p>
-  <a href="https://amzn.to/4vT4Elx" class="callout-link" target="_blank" rel="nofollow sponsored noopener">Check it out on Amazon →</a>
+  <p class="callout-label">{label}</p>
+  <p class="callout-copy">{copy}</p>
+  <a href={href} class="callout-link" target="_blank" rel="nofollow sponsored noopener">Check it out on Amazon →</a>
   <p class="disclosure">As an Amazon Associate, we earn from qualifying purchases.</p>
 </div>
 

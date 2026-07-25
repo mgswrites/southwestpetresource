@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AffiliateCallout from '../../components/AffiliateCallout.astro';
 import { getGuideBySlug, getGuides } from '../../lib/data';
 
 export async function getStaticPaths() {
@@ -24,6 +25,16 @@ const entry = (await getGuideBySlug(guide.slug)) ?? guide;
   <section class="section guide-body">
     <Fragment set:html={entry.body} />
   </section>
+
+  {entry.slug === 'tips-traveling-with-pets-southwest' && (
+    <section class="section">
+      <AffiliateCallout
+        label="🩹 Safety pick"
+        copy="Every pet owner should have one of these on hand. A compact first-aid kit for dogs and cats, ready for the trail, the car, or home."
+        href="https://amzn.to/4vSsRZ5"
+      />
+    </section>
+  )}
 </BaseLayout>
 
 <style>
