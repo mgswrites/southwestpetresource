@@ -1,8 +1,8 @@
 import { getGuides, getAllListings, getCategories, getRegions } from '../lib/data';
 
 export const GET = async () => {
-  const baseUrl = 'https://swpetresource.com';
-  const pages = ['', '/guides', '/guides/'];
+  const baseUrl = 'https://www.southwestpetresource.com';
+  const pages = ['', '/guides'];
 
   const [categories, regions, listings, guides] = await Promise.all([
     getCategories(),
